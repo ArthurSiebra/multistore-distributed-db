@@ -1,0 +1,148 @@
+
+{
+  "projeto": "MultiStore Distributed DB",
+  "versao": "1.0",
+  "status": "proposta",
+  "sgbds": {
+    "postgresql": {
+      "tipo": "relacional",
+      "adapter": "PostgreSQLAdapter"
+    },
+    "mysql": {
+      "tipo": "relacional",
+      "adapter": "MySQLAdapter"
+    },
+    "mongodb": {
+      "tipo": "documental",
+      "adapter": "MongoDBAdapter"
+    }
+  },
+  "regioes": {
+    "N": "Norte",
+    "NE": "Nordeste",
+    "CO": "Centro-Oeste",
+    "SE": "Sudeste",
+    "S": "Sul"
+  },
+  "entidades": {
+    "Cliente": {
+      "tipo_fragmentacao": "horizontal_primaria",
+      "chave_primaria": "id_cliente",
+      "atributo_fragmentacao": "regiao",
+      "fragmentos": {
+        "CLI_N": {
+          "sgbd": "postgresql",
+          "predicado": {"regiao": "Norte"}
+        },
+        "CLI_NE": {
+          "sgbd": "postgresql",
+          "predicado": {"regiao": "Nordeste"}
+        },
+        "CLI_CO": {
+          "sgbd": "postgresql",
+          "predicado": {"regiao": "Centro-Oeste"}
+        },
+        "CLI_SE": {
+          "sgbd": "mysql",
+          "predicado": {"regiao": "Sudeste"}
+        },
+        "CLI_S": {
+          "sgbd": "mysql",
+          "predicado": {"regiao": "Sul"}
+        }
+      }
+    },
+    "Pedido": {
+      "tipo_fragmentacao": "horizontal_primaria",
+      "chave_primaria": "id_pedido",
+      "atributo_fragmentacao": "regiao",
+      "fragmentos": {
+        "PED_N": {
+          "sgbd": "postgresql",
+          "predicado": {"regiao": "Norte"}
+        },
+        "PED_NE": {
+          "sgbd": "postgresql",
+          "predicado": {"regiao": "Nordeste"}
+        },
+        "PED_CO": {
+          "sgbd": "postgresql",
+          "predicado": {"regiao": "Centro-Oeste"}
+        },
+        "PED_SE": {
+          "sgbd": "mysql",
+          "predicado": {"regiao": "Sudeste"}
+        },
+        "PED_S": {
+          "sgbd": "mysql",
+          "predicado": {"regiao": "Sul"}
+        }
+      }
+    },
+    "Item_Pedido": {
+      "tipo_fragmentacao": "horizontal_derivada",
+      "chave_primaria": "id_item",
+      "derivada_de": "Pedido",
+      "chave_relacionamento": "id_pedido",
+      "fragmentos": {
+        "ITEM_N": {
+          "sgbd": "postgresql",
+          "fragmento_pai": "PED_N"
+        },
+        "ITEM_NE": {
+          "sgbd": "postgresql",
+          "fragmento_pai": "PED_NE"
+        },
+        "ITEM_CO": {
+          "sgbd": "postgresql",
+          "fragmento_pai": "PED_CO"
+        },
+        "ITEM_SE": {
+          "sgbd": "mysql",
+          "fragmento_pai": "PED_SE"
+        },
+        "ITEM_S": {
+          "sgbd": "mysql",
+          "fragmento_pai": "PED_S"
+        }
+      }
+    },
+    "Produto": {
+      "tipo_fragmentacao": "vertical",
+      "chave_primaria": "id_produto",
+      "fragmentos": {
+        "PROD_COMERCIAL": {
+          "sgbd": "postgresql",
+          "atributos": [
+            "id_produto",
+            "nome",
+            "categoria",
+            "preco"
+          ]
+        },
+        "PROD_OPERACIONAL": {
+          "sgbd": "mysql",
+          "atributos": [
+            "id_produto",
+            "descricao",
+            "estoque"
+          ]
+        }
+      },
+      "reconstrucao": {
+        "operacao": "JOIN",
+        "chave": "id_produto"
+      }
+    },
+    "Avaliacao": {
+      "tipo_fragmentacao": "nao_fragmentada",
+      "chave_primaria": "id_avaliacao",
+      "fragmentos": {
+        "AVALIACAO": {
+          "sgbd": "mongodb",
+          "colecao": "Avaliacao"
+        }
+      }
+    }
+  }
+}
