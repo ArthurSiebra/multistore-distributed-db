@@ -45,3 +45,10 @@ No Modelo Relacional, as chaves estrangeiras representam os relacionamentos defi
 ## 5. Consideracoes finais
 
 A modelagem global foi desenvolvida com base nas entidades e nos requisitos do e-commerce multirregional. Ela servira como referencia para a definicao dos fragmentos e sua distribuicao entre PostgreSQL, MySQL e MongoDB nas proximas etapas do projeto.
+## 6. Identificadores globais
+
+As chaves primarias dos fragmentos utilizam o tipo BIGINT e nao possuem geracao automatica independente em cada banco ou fragmento.
+
+Os identificadores devem ser fornecidos pela camada de aplicacao, garantindo unicidade global entre os fragmentos armazenados no PostgreSQL e no MySQL.
+
+A estrategia de geracao e distribuicao desses identificadores devera ser implementada pelo Gateway nas etapas de desenvolvimento das operacoes de escrita.
