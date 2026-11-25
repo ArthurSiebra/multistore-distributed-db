@@ -1,0 +1,19 @@
+# Git
+.git
+.gitignore
+
+# Ambiente virtual
+.venv/
+venv/
+
+# Variaveis de ambiente
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
