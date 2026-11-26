@@ -61,6 +61,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./init/mysql:/docker-entrypoint-initdb.d:ro
     networks:
       - multistore-network
     healthcheck:
@@ -80,6 +81,7 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
     volumes:
       - mongodb_data:/data/db
+      - ./init/mongodb:/docker-entrypoint-initdb.d:ro
     networks:
       - multistore-network
     healthcheck:
