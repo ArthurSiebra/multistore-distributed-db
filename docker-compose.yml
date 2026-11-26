@@ -7,6 +7,9 @@ services:
     ports:
       - "${GATEWAY_PORT}:8000"
     environment:
+      APP_ENV: ${APP_ENV:-development}
+      GATEWAY_PORT: ${GATEWAY_PORT:-8000}
+      MONGO_AUTH_SOURCE: ${MONGO_AUTH_SOURCE:-admin}
       POSTGRES_HOST: postgres
       POSTGRES_PORT: ${POSTGRES_PORT}
       POSTGRES_DB: ${POSTGRES_DB}
